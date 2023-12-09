@@ -26,15 +26,25 @@ public enum Category {
     private int id;
     private String name;
     private List<Food> foods;
+    private int count;
 
     Category(int id, String name, List<Food> foods) {
         this.id = id;
         this.name = name;
         this.foods = foods;
+        this.count = 0;
     }
 
     public Category recommend() {
-        return getCategoryById(Randoms.pickNumberInRange(1, 5));
+        int count = 0;
+        do {
+            Category category = getCategoryById(Randoms.pickNumberInRange(1, 5));
+            if (category.count < 2) {
+                category.increaseCount();
+                return category;
+            }
+        }
+        while (true);
     }
 
     private Category getCategoryById(int id) {
@@ -44,11 +54,23 @@ public enum Category {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카테고리입니다."));
     }
 
+    private void increaseCount() {
+        this.count++;
+    }
+
     public String getName() {
         return name;
     }
 
     public List<Food> getFoods() {
         return Collections.unmodifiableList(foods);
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public int getId() {
+        return id;
     }
 }
