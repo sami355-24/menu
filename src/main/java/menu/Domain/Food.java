@@ -9,7 +9,7 @@ public enum Food {
     UDON("우동"),
     MISOSHIRU("미소시루"),
     SUSHI("스시"),
-    KATSUDON("카츠동"),
+    KATSUDON("가츠동"),
     ONIGIRI("오니기리"),
     HAI_RICE("하이라이스"),
     RAMEN("라면"),
@@ -62,10 +62,16 @@ public enum Food {
     }
 
     public static Food findFoodByName(String name) {
-        return Arrays.stream(Food.values())
-                .filter(food -> food.name.equals(name))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(INVALID_FOOD_NAME.getPrompt()));
+        for (Food food : Food.values()) {
+            if (food.name.equals(name)) {
+                return food;
+            }
+        }
+        throw new IllegalArgumentException(INVALID_FOOD_NAME.getPrompt());
+//        return Arrays.stream(Food.values())
+//                .filter(food -> food.name.equals(name))
+//                .findFirst()
+//                .orElseThrow(() -> new IllegalArgumentException(INVALID_FOOD_NAME.getPrompt()));
     }
 
     public String getName() {
