@@ -20,6 +20,26 @@ public class Coach {
         bannedFoods.add(food);
     }
 
+    public void addRecommendedFood(Food food) {
+        recommendedFoods.add(food);
+    }
+
+    public List<String> findRecommendedCategory() {
+        List<String> categoryNames = new LinkedList<>();
+        for (Food food : recommendedFoods) {
+            categoryNames.add(Category.findCategoryNameByFood(food));
+        }
+        return categoryNames;
+    }
+
+    public List<String> makeRecommendFoodList() {
+        List<String> recommendFoodList = new LinkedList<>();
+        for (Food food : recommendedFoods) {
+            recommendFoodList.add(food.getName());
+        }
+        return recommendFoodList;
+    }
+
     public String getName() {
         return name;
     }

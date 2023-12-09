@@ -35,7 +35,7 @@ public enum Category {
         this.count = 0;
     }
 
-    public Category recommendCategory() {
+    public static Category findRecommendCategory() {
         int count = 0;
         do {
             Category category = getCategoryById(Randoms.pickNumberInRange(1, 5));
@@ -47,7 +47,7 @@ public enum Category {
         while (true);
     }
 
-    private Category getCategoryById(int id) {
+    private static Category getCategoryById(int id) {
         return Arrays.stream(Category.values())
                 .filter(category -> category.id == id)
                 .findFirst()
@@ -56,6 +56,24 @@ public enum Category {
 
     private void increaseCount() {
         this.count++;
+    }
+
+    public Food findRecommendedFood(List<Food> recommendedFoods, List<Food> bannedFoods) {
+        while (true) {
+            List<Food> shuffledFood = Randoms.shuffle(this.foods);
+            if (recommendedFoods.contains(shuffledFood.get(0)) || bannedFoods.contains(shuffledFood.get(0))) {
+                continue;
+            }
+            return shuffledFood.get(0);
+        }
+    }
+
+    static String findCategoryNameByFood(Food food) {
+        return Arrays.stream(Category.values())
+                .filter(category -> category.foods.contains(food))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카테고리입니다."))
+                .name;
     }
 
     public String getName() {

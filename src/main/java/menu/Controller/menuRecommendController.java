@@ -1,6 +1,7 @@
 package menu.Controller;
 
 import java.util.List;
+import menu.Domain.Category;
 import menu.Domain.Coach;
 import menu.Domain.CoachGroup;
 import menu.Domain.Food;
@@ -16,6 +17,14 @@ public class menuRecommendController {
         outputView.printWellComeMessage();
         CoachGroup coachGroup = makeCoach();
         makeBannedFoods(coachGroup);
+        for (int i = 0; i < 5; i++) {
+            makeRecommendedFoods(coachGroup);
+        }
+
+        outputView.printRecommendResultHeader(coachGroup.findRecommendCategory());
+        showRecommendResult(coachGroup);
+
+        outputView.printEndMessage();
     }
 
     private CoachGroup makeCoach() {
@@ -23,7 +32,7 @@ public class menuRecommendController {
         return new CoachGroup(coachNames);
     }
 
-    private static void makeBannedFoods(CoachGroup coachGroup) {
+    private void makeBannedFoods(CoachGroup coachGroup) {
         List<Coach> coaches = coachGroup.getCoaches();
         coaches.forEach(coach -> {
             List<String> bannedFoods = inputView.inputBannedFoods(coach.getName());
@@ -31,7 +40,19 @@ public class menuRecommendController {
                     .map(Food::findFoodByName)
                     .forEach(coach::addBannedFood);
         });
-
     }
 
+    private void makeRecommendedFoods(CoachGroup coachGroup) {
+        List<Coach> coaches = coachGroup.getCoaches();
+        Category recommendCategory = Category.findRecommendCategory();
+        coaches.forEach(coach -> {
+            Food recommendedFood = recommendCategory.findRecommendedFood(coach.getRecommendedFoods(), coach.getBannedFoods());
+            coach.addRecommendedFood(recommendedFood);
+        });
+    }
+
+    private void showRecommendResult(CoachGroup coachGroup) {
+        List<Coach> coaches = coachGroup.getCoaches();
+        coaches.forEach(coach -> outputView.printRecommendResult(coach.getName(), coach.makeRecommendFoodList()));
+    }
 }

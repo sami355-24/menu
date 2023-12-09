@@ -23,4 +23,9 @@ public class CoachGroup {
     public List<Coach> getCoaches() {
         return Collections.unmodifiableList(coaches);
     }
+
+    public List<String> findRecommendCategory() {
+        return coaches.get(0).findRecommendedCategory();
+    }
+
 }
