@@ -1,6 +1,7 @@
 package menu.Controller;
 
 import java.util.List;
+import menu.Domain.CoachGroup;
 import menu.View.InputView;
 import menu.View.OutputView;
 
@@ -11,7 +12,11 @@ public class menuRecommendController {
 
     public void run() {
         outputView.printWellComeMessage();
-        List<String> coachNames = inputView.inputCoachNames();
+        makeCoach();
+    }
 
+    private CoachGroup makeCoach() {
+        List<String> coachNames = inputView.inputCoachNames();
+        return new CoachGroup(coachNames);
     }
 }
