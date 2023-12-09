@@ -21,9 +21,7 @@ public class Reader {
     }
 
     public static String getString() {
-        String input = Console.readLine();
-        validateInput(input);
-        return input;
+        return Console.readLine();
     }
 
     private static void validateInput(String input) {

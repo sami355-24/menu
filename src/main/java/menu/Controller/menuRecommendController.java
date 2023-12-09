@@ -1,7 +1,9 @@
 package menu.Controller;
 
 import java.util.List;
+import menu.Domain.Coach;
 import menu.Domain.CoachGroup;
+import menu.Domain.Food;
 import menu.View.InputView;
 import menu.View.OutputView;
 
@@ -12,11 +14,23 @@ public class menuRecommendController {
 
     public void run() {
         outputView.printWellComeMessage();
-        makeCoach();
+        CoachGroup coachGroup = makeCoach();
+        makeBannedFoods(coachGroup);
     }
 
     private CoachGroup makeCoach() {
         List<String> coachNames = inputView.inputCoachNames();
         return new CoachGroup(coachNames);
     }
+
+    private static void makeBannedFoods(CoachGroup coachGroup) {
+        List<Coach> coaches = coachGroup.getCoaches();
+        for (Coach coach : coaches) {
+            List<String> bannedFoods = inputView.inputBannedFoods(coach.getName());
+            for (String bannedFood : bannedFoods) {
+                coach.addBannedFood(Food.findFoodByName(bannedFood));
+            }
+        }
+    }
+
 }
