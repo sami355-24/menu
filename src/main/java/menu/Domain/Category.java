@@ -35,7 +35,7 @@ public enum Category {
         this.count = 0;
     }
 
-    public Category recommend() {
+    public Category recommendCategory() {
         int count = 0;
         do {
             Category category = getCategoryById(Randoms.pickNumberInRange(1, 5));
