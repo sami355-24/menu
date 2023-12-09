@@ -1,8 +1,11 @@
 package menu;
 
+import menu.Controller.MenuRecommendController;
+import menu.Controller.MenuRecommendControllerDeco;
+
 public class Application {
     public static void main(String[] args) {
-        menu.Controller.menuRecommendController menuRecommendController = new menu.Controller.menuRecommendController();
+        MenuRecommendController menuRecommendController = new MenuRecommendControllerDeco();
         menuRecommendController.run();
     }
 }

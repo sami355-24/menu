@@ -1,5 +1,6 @@
 package menu.Domain;
 
+import static menu.Message.Excepton.ExceptionPrompt.INVALID_COACH_NUMBER;
 import static menu.Message.Excepton.ExceptionPrompt.INVALID_INPUT;
 
 import java.util.Collections;
@@ -13,7 +14,7 @@ public class CoachGroup {
     public CoachGroup(List<String> coaches) {
         this.coaches = new LinkedList<>();
         if (coaches.size() != new HashSet<>(coaches).size()) {
-            throw new IllegalArgumentException(INVALID_INPUT.getPrompt());
+            throw new IllegalArgumentException(INVALID_COACH_NUMBER.getPrompt());
         }
         for (String coach : coaches) {
             this.coaches.add(new Coach(coach));

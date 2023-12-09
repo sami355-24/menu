@@ -8,7 +8,7 @@ import menu.Domain.Food;
 import menu.View.InputView;
 import menu.View.OutputView;
 
-public class menuRecommendController {
+public class MenuRecommendController {
 
     private static final InputView inputView = new InputView();
     private static final OutputView outputView = new OutputView();
@@ -27,12 +27,12 @@ public class menuRecommendController {
         outputView.printEndMessage();
     }
 
-    private CoachGroup makeCoach() {
+    protected CoachGroup makeCoach() {
         List<String> coachNames = inputView.inputCoachNames();
         return new CoachGroup(coachNames);
     }
 
-    private void makeBannedFoods(CoachGroup coachGroup) {
+    protected void makeBannedFoods(CoachGroup coachGroup) {
         List<Coach> coaches = coachGroup.getCoaches();
         coaches.forEach(coach -> {
             List<String> bannedFoods = inputView.inputBannedFoods(coach.getName());

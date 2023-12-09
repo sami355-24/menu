@@ -1,5 +1,7 @@
 package menu.Domain;
 
+import static menu.Message.Excepton.ExceptionPrompt.INVALID_FOOD_NAME;
+
 import java.util.Arrays;
 
 public enum Food {
@@ -63,7 +65,7 @@ public enum Food {
         return Arrays.stream(Food.values())
                 .filter(food -> food.name.equals(name))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 음식입니다."));
+                .orElseThrow(() -> new IllegalArgumentException(INVALID_FOOD_NAME.getPrompt()));
     }
 
     public String getName() {
