@@ -7,10 +7,6 @@ import menu.Exception.CommonValidateException;
 
 public class Validator {
 
-    private static final String number = "^\\d*$";
-    private static final String englishWithWhiteSpace = "^[a-zA-Z ]*$";
-    private static final String koreanWithWhiteSpace = "^[가-힣 ]*$";
-    private static final String whiteSpace = " ";
     private static final String coachNamePattern = "^\\s*([가-힣]{2,4}\\s*,\\s*){1,4}[가-힣]{2,4}\\s*$";
     private static final String foodNamePattern = "^([^,]*,){0,2}[^,]*$";
 
