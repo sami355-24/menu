@@ -17,37 +17,4 @@ public class Utility {
         return Integer.parseInt(str);
     }
 
-    private static final String RESOURCE_PATH = "/";
-
-    public static List<String> readFile(String fileName) {
-        return getResourceAsStream(fileName)
-                .map(stream -> new BufferedReader(new InputStreamReader(stream)))
-                .map(reader -> reader.lines().collect(Collectors.toList()))
-                .orElse(List.of());
-    }
-
-    public static List<String> readFileBetween(String start, String end) {
-        return getResourceAsStream("guide.md")
-                .map(inputStream -> new BufferedReader(new InputStreamReader(inputStream)))
-                .map(reader -> findDataBetween(reader, start, end))
-                .orElse(List.of());
-    }
-
-    private static Optional<InputStream> getResourceAsStream(String fileName) {
-        String filePath = RESOURCE_PATH + fileName;
-        return Optional.ofNullable(Utility.class.getResourceAsStream(filePath));
-    }
-
-    private static List<String> findDataBetween(BufferedReader reader, String start, String end) {
-        Predicate<String> isCourseHeader = line -> line.startsWith(start);
-        Predicate<String> isLevelHeader = line -> line.startsWith(end);
-
-        return reader.lines()
-                .dropWhile(line -> !isCourseHeader.test(line)) 
-                .skip(1) 
-                .takeWhile(line -> !isLevelHeader.test(line)) 
-                .filter(line -> !line.trim().isEmpty())
-                .toList();
-    }
-
 }
