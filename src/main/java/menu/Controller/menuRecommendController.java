@@ -25,12 +25,13 @@ public class menuRecommendController {
 
     private static void makeBannedFoods(CoachGroup coachGroup) {
         List<Coach> coaches = coachGroup.getCoaches();
-        for (Coach coach : coaches) {
+        coaches.forEach(coach -> {
             List<String> bannedFoods = inputView.inputBannedFoods(coach.getName());
-            for (String bannedFood : bannedFoods) {
-                coach.addBannedFood(Food.findFoodByName(bannedFood));
-            }
-        }
+            bannedFoods.stream()
+                    .map(Food::findFoodByName)
+                    .forEach(coach::addBannedFood);
+        });
+
     }
 
 }
