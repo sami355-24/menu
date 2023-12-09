@@ -11,8 +11,16 @@ public class Validator {
     private static final String englishWithWhiteSpace = "^[a-zA-Z ]*$";
     private static final String koreanWithWhiteSpace = "^[가-힣 ]*$";
     private static final String whiteSpace = " ";
+    private static final String CoachNamePattern = "^\\s*([가-힣]{2,4}\\s*,\\s*){1,4}[가-힣]{2,4}\\s*$";
+
 
     private Validator() {
+    }
+
+    public static void isValidCoachName(String str) {
+        if (!str.matches(CoachNamePattern)) {
+            throw new CommonValidateException(INVALID_INPUT.getPrompt(), new IllegalArgumentException());
+        }
     }
 
     public static void hasOnlyNumber(String str) {
